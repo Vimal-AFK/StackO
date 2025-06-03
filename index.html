@@ -1,0 +1,2937 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stacko - Master DSA</title>
+    <style>
+        :root {
+            --primary-dark: #121212;
+            --primary: #1e1e1e;
+            --primary-light: #2d2d2d;
+            --secondary: #6a5acd;
+            /* Slate blue accent */
+            --accent: #bb86fc;
+            /* Purple accent */
+            --text-primary: #e0e0e0;
+            --text-secondary: #b0b0b0;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --danger: #f44336;
+            --card-bg: #1e1e1e;
+            --card-border: #333333;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--primary-dark);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--card-border);
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            font-size: 2.3rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 40px 0;
+            margin-bottom: 40px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(10px);
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, var(--accent), var(--secondary));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: #121212;
+        }
+
+        .btn-primary:hover {
+
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(187, 134, 252, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(187, 134, 252, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .info-banner {
+            background: rgba(187, 134, 252, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 15px;
+            margin-bottom: 30px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        h2 {
+            color: var(--accent);
+            margin-top: 40px;
+            cursor: pointer;
+            padding: 15px;
+            background: var(--card-bg);
+            border-radius: 8px;
+            border: 1px solid var(--card-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        h2:hover {
+            background: var(--primary-light);
+        }
+
+        h2::after {
+            content: '+';
+            font-size: 1.5em;
+            color: var(--accent);
+        }
+
+        h2.active::after {
+            content: '-';
+        }
+
+        .level-content {
+            display: none;
+            padding: 20px;
+            background: var(--card-bg);
+            border-radius: 0 0 8px 8px;
+            margin-bottom: 20px;
+            border: 1px solid var(--card-border);
+            border-top: none;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background: var(--primary);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th,
+        td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        th {
+            background-color: var(--primary-light);
+            color: white;
+            position: sticky;
+            top: 0;
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: var(--primary-light);
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: var(--secondary);
+            text-decoration: underline;
+        }
+
+        .difficulty {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+
+        .easy {
+            background-color: rgba(76, 175, 80, 0.2);
+            color: #4caf50;
+        }
+
+        .medium {
+            background-color: rgba(255, 152, 0, 0.2);
+            color: #ff9800;
+        }
+
+        .hard {
+            background-color: rgba(244, 67, 54, 0.2);
+            color: #f44336;
+        }
+
+        .expert {
+            background-color: rgba(156, 39, 176, 0.2);
+            color: #9c27b0;
+        }
+
+        .platform {
+            font-weight: 600;
+        }
+
+        .leetcode {
+            color: #f89f1b;
+        }
+
+        .geeksforgeeks {
+            color: #2F8D46;
+        }
+
+        .topic-tag {
+            display: inline-block;
+            background-color: var(--primary-light);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            margin: 2px;
+            color: var(--text-secondary);
+        }
+
+        .search-container {
+            margin-bottom: 30px;
+            display: flex;
+            gap: 10px;
+        }
+
+        #searchInput {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            background: var(--primary-light);
+            color: white;
+        }
+
+        #searchInput::placeholder {
+            color: var(--text-secondary);
+        }
+
+        #searchButton {
+            padding: 12px 24px;
+            background-color: var(--accent);
+            color: #121212;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        #searchButton:hover {
+            background-color: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        .filter-container {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-select {
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: none;
+            background-color: var(--primary-light);
+            color: white;
+            font-size: 14px;
+        }
+
+        .filter-select option {
+            background-color: var(--primary-dark);
+        }
+
+        .topics-intro {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 40px;
+            border: 1px solid var(--card-border);
+        }
+
+        .topics-intro h2 {
+            background: none;
+            border: none;
+            padding: 0;
+            margin: 0 0 20px 0;
+            cursor: default;
+        }
+
+        .topics-intro h2::after {
+            content: none;
+        }
+
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .topic-card {
+            background: var(--primary);
+            border-radius: 8px;
+            padding: 15px;
+            border: 1px solid var(--card-border);
+            transition: transform 0.3s;
+        }
+
+        .topic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border-color: var(--accent);
+        }
+
+        .topic-card h3 {
+            color: var(--accent);
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .topic-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px 0;
+            color: var(--text-secondary);
+            font-size: 0.9em;
+            border-top: 1px solid var(--card-border);
+        }
+
+        .course-banner {
+            background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+            border-radius: 12px;
+            padding: 30px;
+            margin: 40px 0;
+            text-align: center;
+            border: 1px solid var(--card-border);
+        }
+
+        .course-banner h2 {
+            background: none;
+            border: none;
+            padding: 0;
+            margin: 0 0 20px 0;
+            cursor: default;
+            color: white;
+        }
+
+        .course-banner h2::after {
+            content: none;
+        }
+
+        .course-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .course-btn {
+            padding: 10px 20px;
+            background: rgba(187, 134, 252, 0.1);
+            color: var(--accent);
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: 1px solid var(--accent);
+        }
+
+        .course-btn:hover {
+            background: rgba(187, 134, 252, 0.2);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .filter-container {
+                flex-direction: column;
+            }
+
+            .topics-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Responsive Table Styles */
+        @media (max-width: 768px) {
+            /* Make table elements block for stacking */
+            table,
+            thead,
+            tbody,
+            th,
+            td,
+            tr {
+                display: block;
+                
+            }
+
+            /* Hide table headers */
+            thead {
+                display: none;
+            }
+
+            /* Style each row as a card */
+            tr {
+                margin-bottom: 1.5em;
+                border: 1px solid #eee;
+                border-radius: 8px;
+                box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+               
+            }
+
+            /* Style table cells */
+            td {
+               
+                min-height: 20px;
+                border: none;
+                border-bottom: 1px solid #f0f0f0;
+                box-sizing: border-box;
+            }
+
+            /* Add label before each cell content */
+            td:before {
+                position: absolute;
+                top: 0;
+                width: 45%;
+                white-space: nowrap;
+                font-weight: bold;
+                color: #888;
+                content: attr(data-label);
+                box-sizing: border-box;
+            }
+
+            /* Remove border from last cell */
+            td:last-child {
+                border-bottom: none;
+            }
+
+            /* Icon link styling */
+            .icon-link {
+                font-size: 1.5em;
+                margin-right: 0.5em;
+                vertical-align: middle;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <p class="logo">Stack<span>O</span></p>
+            <a class="btn btn-primary" href="{% url 'home' %}">Back to CAMPUS</a>
+        </header>
+        <p>Stacko is your comprehensive guide to mastering DSA concepts through a carefully curated collection of
+            problems, organized by difficulty and topic.</p>
+
+        <section id="problems">
+            <div id="levelsContainer">
+                <!-- Level 1: Basic Fundamentals -->
+                <h2>Level 1: Programming Fundamentals</h2>
+                <div class="level-content">
+                    <p>Master the fundamental concepts of programming and basic data structures.</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Problem Name</th>
+                                <th>Topics</th>
+                                <th>Difficulty</th>
+                                <th>Platform</th>
+                                <th>Article Link</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Reverse a String</td>
+                                <td><span class="topic-tag">string</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/reverse-string/" target="_blank">#344</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/reverse-a-string-in-c-cpp-different-methods/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Find Maximum in Array</td>
+                                <td><span class="topic-tag">array</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/c-program-find-largest-element-array/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/c-program-find-largest-element-array/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Check if Palindrome</td>
+                                <td><span class="topic-tag">string</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/valid-palindrome/" target="_blank">#125</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/c-program-check-given-string-palindrome/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Sum of Array Elements</td>
+                                <td><span class="topic-tag">array</span> <span class="topic-tag">math</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/program-sum-array-elements/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/program-sum-array-elements/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Factorial of a Number</td>
+                                <td><span class="topic-tag">math</span> <span class="topic-tag">recursion</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/program-for-factorial-of-a-number/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/program-for-factorial-of-a-number/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Check Even or Odd</td>
+                                <td><span class="topic-tag">math</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/program-to-check-whether-a-number-is-even-or-odd/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/program-to-check-whether-a-number-is-even-or-odd/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Find Minimum in Array</td>
+                                <td><span class="topic-tag">array</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/program-to-find-minimum-element-in-an-array/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/program-to-find-minimum-element-in-an-array/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Count Vowels in a String</td>
+                                <td><span class="topic-tag">string</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/program-count-vowels-string/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/program-count-vowels-string/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Sum of Digits</td>
+                                <td><span class="topic-tag">math</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/program-to-calculate-sum-of-digits-of-a-number/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/program-to-calculate-sum-of-digits-of-a-number/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Power of Two</td>
+                                <td><span class="topic-tag">math</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/power-of-two/" target="_blank">#231</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/check-if-a-number-is-power-of-two/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Merge Two Sorted Arrays</td>
+                                <td><span class="topic-tag">array</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/merge-sorted-array/" target="_blank">#88</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/merge-two-sorted-arrays/" target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Count Set Bits</td>
+                                <td><span class="topic-tag">bit-manipulation</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/count-set-bits-in-an-integer/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/count-set-bits-in-an-integer/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Check Prime Number</td>
+                                <td><span class="topic-tag">math</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/program-to-check-prime-number/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/program-to-check-prime-number/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Find GCD of Two Numbers</td>
+                                <td><span class="topic-tag">math</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/euclidean-algorithms-basic-and-extended/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/euclidean-algorithms-basic-and-extended/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Find Fibonacci Number</td>
+                                <td><span class="topic-tag">recursion</span> <span class="topic-tag">math</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/fibonacci-number/" target="_blank">#509</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/program-for-nth-fibonacci-number/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Find Length of String</td>
+                                <td><span class="topic-tag">string</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/program-to-find-length-of-a-string-in-c/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/program-to-find-length-of-a-string-in-c/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Print Numbers from 1 to N</td>
+                                <td><span class="topic-tag">loops</span> <span class="topic-tag">math</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/print-n-numbers-1-n/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/print-n-numbers-1-n/" target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Check Leap Year</td>
+                                <td><span class="topic-tag">math</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/program-to-check-leap-year/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/program-to-check-leap-year/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Sum of Natural Numbers</td>
+                                <td><span class="topic-tag">math</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/program-to-find-sum-of-natural-numbers/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/program-to-find-sum-of-natural-numbers/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2>Level 2: Arrays & Strings</h2>
+                <div class="level-content">
+                    <p>Deep dive into arrays and strings — their manipulation, traversal, and common algorithmic
+                        problems.
+                    </p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Problem Name</th>
+                                <th>Topics</th>
+                                <th>Difficulty</th>
+                                <th>Platform</th>
+                                <th>Article Link</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Arrays (20 Problems) -->
+                            <tr>
+                                <td>Rotate Array</td>
+                                <td><span class="topic-tag">array</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/rotate-array/" target="_blank">#189</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/array-rotation/" target="_blank">GFG
+                                        Article</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Find Duplicate Number</td>
+                                <td><span class="topic-tag">array</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/find-the-duplicate-number/"
+                                        target="_blank">#287</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/find-duplicate-in-on-time-and-constant-extra-space/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Move Zeroes</td>
+                                <td><span class="topic-tag">array</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/move-zeroes/" target="_blank">#283</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/move-zeroes-end-array/" target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Maximum Subarray</td>
+                                <td><span class="topic-tag">array</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/maximum-subarray/" target="_blank">#53</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/largest-sum-contiguous-subarray/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Find Missing Number</td>
+                                <td><span class="topic-tag">array</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/missing-number/" target="_blank">#268</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/find-the-missing-number/" target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Intersection of Two Arrays</td>
+                                <td><span class="topic-tag">array</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/intersection-of-two-arrays/"
+                                        target="_blank">#349</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/find-common-elements-in-three-sorted-arrays/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Contains Duplicate</td>
+                                <td><span class="topic-tag">array</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/contains-duplicate/"
+                                        target="_blank">#217</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/find-whether-an-array-is-subset-of-another-array-set-1/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Single Number</td>
+                                <td><span class="topic-tag">array</span> <span class="topic-tag">bit-manipulation</span>
+                                </td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/single-number/" target="_blank">#136</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/find-the-element-that-appears-once/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Product of Array Except Self</td>
+                                <td><span class="topic-tag">array</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/product-of-array-except-self/"
+                                        target="_blank">#238</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/product-array-except-self/"
+                                        target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Find All Numbers Disappeared in an Array</td>
+                                <td><span class="topic-tag">array</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/"
+                                        target="_blank">#448</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/find-missing-numbers-array/"
+                                        target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Best Time to Buy and Sell Stock</td>
+                                <td><span class="topic-tag">array</span> <span class="topic-tag">greedy</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock/"
+                                        target="_blank">#121</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/buy-and-sell-stock-to-maximize-profit/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Find Pivot Index</td>
+                                <td><span class="topic-tag">array</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/find-pivot-index/" target="_blank">#724</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/find-pivot-index-of-an-array/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Merge Intervals</td>
+                                <td><span class="topic-tag">array</span> <span class="topic-tag">sorting</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/merge-intervals/" target="_blank">#56</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/merging-intervals/" target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Find Majority Element</td>
+                                <td><span class="topic-tag">array</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/majority-element/" target="_blank">#169</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/majority-element/" target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Contains Duplicate II</td>
+                                <td><span class="topic-tag">array</span> <span class="topic-tag">hashing</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/contains-duplicate-ii/"
+                                        target="_blank">#219</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/find-duplicates-in-an-array-within-k-distance/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Find All Duplicates in an Array</td>
+                                <td><span class="topic-tag">array</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/find-all-duplicates-in-an-array/"
+                                        target="_blank">#442</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/find-duplicates-in-an-array/"
+                                        target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Maximum Product Subarray</td>
+                                <td><span class="topic-tag">array</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/maximum-product-subarray/"
+                                        target="_blank">#152</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/maximum-product-subarray/"
+                                        target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>3Sum</td>
+                                <td><span class="topic-tag">array</span> <span class="topic-tag">two-pointers</span>
+                                </td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/3sum/" target="_blank">#15</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/find-a-triplet-that-sum-to-a-given-value/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+
+                            <!-- Strings (20 Problems) -->
+                            <tr>
+                                <td>Valid Palindrome</td>
+                                <td><span class="topic-tag">string</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/valid-palindrome/" target="_blank">#125</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/check-if-a-string-is-palindrome-or-not/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Longest Substring Without Repeating Characters</td>
+                                <td><span class="topic-tag">string</span> <span class="topic-tag">sliding-window</span>
+                                </td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/longest-substring-without-repeating-characters/"
+                                        target="_blank">#3</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/longest-substring-without-repeating-characters/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Implement strstr()</td>
+                                <td><span class="topic-tag">string</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/implement-strstr/" target="_blank">#28</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/implement-strstr/" target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Longest Palindromic Substring</td>
+                                <td><span class="topic-tag">string</span> <span
+                                        class="topic-tag">dynamic-programming</span>
+                                </td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/longest-palindromic-substring/"
+                                        target="_blank">#5</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/longest-palindromic-substring-set-1/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Count and Say</td>
+                                <td><span class="topic-tag">string</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/count-and-say/" target="_blank">#38</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/count-and-say-sequence/" target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Valid Anagram</td>
+                                <td><span class="topic-tag">string</span> <span class="topic-tag">hashing</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/valid-anagram/" target="_blank">#242</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/check-whether-two-strings-are-anagram-of-each-other/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Group Anagrams</td>
+                                <td><span class="topic-tag">string</span> <span class="topic-tag">hashing</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/group-anagrams/" target="_blank">#49</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/group-anagrams-together/" target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Valid Parentheses</td>
+                                <td><span class="topic-tag">string</span> <span class="topic-tag">stack</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/valid-parentheses/" target="_blank">#20</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/check-for-balanced-parentheses-in-an-expression/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Implement atoi()</td>
+                                <td><span class="topic-tag">string</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/string-to-integer-atoi/"
+                                        target="_blank">#8</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/atoi-in-c-convert-string-to-integer/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Longest Common Prefix</td>
+                                <td><span class="topic-tag">string</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/longest-common-prefix/"
+                                        target="_blank">#14</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/longest-common-prefix-in-an-array-of-strings/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Ransom Note</td>
+                                <td><span class="topic-tag">string</span> <span class="topic-tag">hashing</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/ransom-note/" target="_blank">#383</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/ransom-note-problem/" target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Count Vowels in a String</td>
+                                <td><span class="topic-tag">string</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/count-vowels-in-a-string/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/count-vowels-in-a-string/"
+                                        target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Remove Vowels from a String</td>
+                                <td><span class="topic-tag">string</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/remove-vowels-from-a-string/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/remove-vowels-from-a-string/"
+                                        target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Check Anagram</td>
+                                <td><span class="topic-tag">string</span> <span class="topic-tag">hashing</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/check-whether-two-strings-are-anagram-of-each-other/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/check-whether-two-strings-are-anagram-of-each-other/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Longest Palindromic Subsequence</td>
+                                <td><span class="topic-tag">string</span> <span
+                                        class="topic-tag">dynamic-programming</span>
+                                </td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/longest-palindromic-subsequence-dp-12/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/longest-palindromic-subsequence-dp-12/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>String Compression</td>
+                                <td><span class="topic-tag">string</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/string-compression/"
+                                        target="_blank">#443</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/string-compression/" target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Excel Sheet Column Title</td>
+                                <td><span class="topic-tag">string</span> <span class="topic-tag">math</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/excel-sheet-column-title/"
+                                        target="_blank">#168</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/excel-sheet-column-title/"
+                                        target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Implement Atoi</td>
+                                <td><span class="topic-tag">string</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/implement-atoi-function-in-c/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/implement-atoi-function-in-c/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2>Level 3: Linked Lists</h2>
+                <div class="level-content">
+                    <p>Learn about singly, doubly, and circular linked lists along with common operations and problems.
+                    </p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Problem Name</th>
+                                <th>Topics</th>
+                                <th>Difficulty</th>
+                                <th>Platform</th>
+                                <th>Article Link</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Reverse a Linked List</td>
+                                <td><span class="topic-tag">linked-list</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/reverse-linked-list/"
+                                        target="_blank">#206</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/reverse-a-linked-list/" target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Detect Cycle in a Linked List</td>
+                                <td><span class="topic-tag">linked-list</span> <span
+                                        class="topic-tag">cycle-detection</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/linked-list-cycle/" target="_blank">#141</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/detect-loop-in-a-linked-list/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Merge Two Sorted Lists</td>
+                                <td><span class="topic-tag">linked-list</span> <span class="topic-tag">merge</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/merge-two-sorted-lists/"
+                                        target="_blank">#21</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/merge-two-sorted-linked-lists/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Remove Nth Node From End of List</td>
+                                <td><span class="topic-tag">linked-list</span> <span
+                                        class="topic-tag">two-pointers</span>
+                                </td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/remove-nth-node-from-end-of-list/"
+                                        target="_blank">#19</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/remove-nth-node-from-end-of-linked-list/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Intersection of Two Linked Lists</td>
+                                <td><span class="topic-tag">linked-list</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/intersection-of-two-linked-lists/"
+                                        target="_blank">#160</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/write-a-function-to-get-the-intersection-point-of-two-linked-lists/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Detect and Remove Loop in Linked List</td>
+                                <td><span class="topic-tag">linked-list</span> <span
+                                        class="topic-tag">cycle-detection</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/detect-and-remove-loop-in-a-linked-list/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/detect-and-remove-loop-in-a-linked-list/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Flatten a Multilevel Doubly Linked List</td>
+                                <td><span class="topic-tag">linked-list</span> <span class="topic-tag">dfs</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/flatten-a-multilevel-doubly-linked-list/"
+                                        target="_blank">#430</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/flatten-a-linked-list-with-next-and-child-pointers/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Add Two Numbers</td>
+                                <td><span class="topic-tag">linked-list</span> <span class="topic-tag">math</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/add-two-numbers/" target="_blank">#2</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/add-two-numbers-represented-by-linked-lists/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Copy List with Random Pointer</td>
+                                <td><span class="topic-tag">linked-list</span> <span class="topic-tag">hashing</span>
+                                </td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/copy-list-with-random-pointer/"
+                                        target="_blank">#138</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/a-linked-list-with-next-and-arbit-pointer/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Palindrome Linked List</td>
+                                <td><span class="topic-tag">linked-list</span> <span
+                                        class="topic-tag">two-pointers</span>
+                                </td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/palindrome-linked-list/"
+                                        target="_blank">#234</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/check-if-a-linked-list-is-palindrome/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Remove Duplicates from Sorted List</td>
+                                <td><span class="topic-tag">linked-list</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/remove-duplicates-from-sorted-list/"
+                                        target="_blank">#83</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/remove-duplicates-from-a-sorted-linked-list/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Remove Duplicates from Sorted List II</td>
+                                <td><span class="topic-tag">linked-list</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/"
+                                        target="_blank">#82</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/remove-duplicates-from-a-sorted-linked-list-ii/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Intersection Point in Y Shaped Linked Lists</td>
+                                <td><span class="topic-tag">linked-list</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://practice.geeksforgeeks.org/problems/intersection-point-in-y-shapped-linked-lists/1"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/write-a-function-to-get-the-intersection-point-of-two-linked-lists/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Rotate List</td>
+                                <td><span class="topic-tag">linked-list</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/rotate-list/" target="_blank">#61</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/rotate-a-linked-list/" target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Split Circular Linked List</td>
+                                <td><span class="topic-tag">linked-list</span> <span
+                                        class="topic-tag">circular-list</span>
+                                </td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/split-a-circular-linked-list-into-two-halves/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/split-a-circular-linked-list-into-two-halves/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Delete Node in a Linked List</td>
+                                <td><span class="topic-tag">linked-list</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/delete-node-in-a-linked-list/"
+                                        target="_blank">#237</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/delete-a-linked-list-node-at-a-given-position/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Convert Sorted List to BST</td>
+                                <td><span class="topic-tag">linked-list</span> <span class="topic-tag">trees</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/convert-sorted-list-to-binary-search-tree/"
+                                        target="_blank">#109</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/convert-sorted-list-to-balanced-bst/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Clone a Linked List with Next and Random Pointer</td>
+                                <td><span class="topic-tag">linked-list</span> <span class="topic-tag">hashing</span>
+                                </td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/a-linked-list-with-next-and-arbit-pointer/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/a-linked-list-with-next-and-arbit-pointer/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Insertion in a Sorted Linked List</td>
+                                <td><span class="topic-tag">linked-list</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/insert-in-a-sorted-linked-list/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/insert-in-a-sorted-linked-list/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Reverse Nodes in k-Group</td>
+                                <td><span class="topic-tag">linked-list</span> <span class="topic-tag">recursion</span>
+                                </td>
+                                <td><span class="difficulty hard">hard</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/reverse-nodes-in-k-group/"
+                                        target="_blank">#25</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/reverse-nodes-in-k-group/"
+                                        target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Rotate Linked List by k Nodes</td>
+                                <td><span class="topic-tag">linked-list</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://practice.geeksforgeeks.org/problems/rotate-a-linked-list/1"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://practice.geeksforgeeks.org/problems/rotate-a-linked-list/1"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2>Level 4: Stacks & Queues</h2>
+                <div class="level-content">
+                    <p>Understand stack and queue data structures, their operations, and common problems including
+                        variations like priority queues and monotonic stacks.</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Problem Name</th>
+                                <th>Topics</th>
+                                <th>Difficulty</th>
+                                <th>Platform</th>
+                                <th>Article Link</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Stack Problems -->
+                            <tr>
+                                <td>Implement Stack using Arrays</td>
+                                <td><span class="topic-tag">stack</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/stack-data-structure-introduction-program/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/stack-data-structure-introduction-program/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Valid Parentheses</td>
+                                <td><span class="topic-tag">stack</span> <span class="topic-tag">string</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/valid-parentheses/" target="_blank">#20</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/check-for-balanced-parentheses-in-an-expression/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Evaluate Reverse Polish Notation</td>
+                                <td><span class="topic-tag">stack</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/evaluate-reverse-polish-notation/"
+                                        target="_blank">#150</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/stack-set-4-evaluation-postfix-expression/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Min Stack</td>
+                                <td><span class="topic-tag">stack</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/min-stack/" target="_blank">#155</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/design-and-implement-special-stack-data-structure/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Next Greater Element</td>
+                                <td><span class="topic-tag">stack</span> <span class="topic-tag">array</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/next-greater-element-i/"
+                                        target="_blank">#496</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/next-greater-element/" target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Largest Rectangle in Histogram</td>
+                                <td><span class="topic-tag">stack</span> <span class="topic-tag">array</span></td>
+                                <td><span class="difficulty hard">hard</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/largest-rectangle-in-histogram/"
+                                        target="_blank">#84</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/largest-rectangle-under-histogram/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Implement Stack using Queues</td>
+                                <td><span class="topic-tag">stack</span> <span class="topic-tag">queue</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/implement-stack-using-queues/"
+                                        target="_blank">#225</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/implement-stack-using-queue/"
+                                        target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Remove K Digits</td>
+                                <td><span class="topic-tag">stack</span> <span class="topic-tag">greedy</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/remove-k-digits/" target="_blank">#402</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/remove-k-digits-to-get-smallest-number/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Score of Parentheses</td>
+                                <td><span class="topic-tag">stack</span> <span class="topic-tag">string</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/score-of-parentheses/"
+                                        target="_blank">#856</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/score-of-parentheses/" target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+
+                            <!-- Queue Problems -->
+                            <tr>
+                                <td>Implement Queue using Stacks</td>
+                                <td><span class="topic-tag">queue</span> <span class="topic-tag">stack</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/implement-queue-using-stacks/"
+                                        target="_blank">#232</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/queue-using-stacks/" target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Circular Queue Implementation</td>
+                                <td><span class="topic-tag">queue</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/circular-queue-set-1-introduction-array-implementation/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/circular-queue-set-1-introduction-array-implementation/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Design Circular Deque</td>
+                                <td><span class="topic-tag">queue</span> <span class="topic-tag">deque</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/design-circular-deque/"
+                                        target="_blank">#641</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/design-circular-deque/" target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Number of Recent Calls (Sliding Window)</td>
+                                <td><span class="topic-tag">queue</span> <span class="topic-tag">sliding-window</span>
+                                </td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/number-of-recent-calls/"
+                                        target="_blank">#933</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/sliding-window-maximum-maximum-of-all-subarrays-of-size-k/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Implement Stack using Queues</td>
+                                <td><span class="topic-tag">queue</span> <span class="topic-tag">stack</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/implement-stack-using-queues/"
+                                        target="_blank">#225</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/implement-stack-using-queue/"
+                                        target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Sliding Window Maximum</td>
+                                <td><span class="topic-tag">queue</span> <span class="topic-tag">sliding-window</span>
+                                </td>
+                                <td><span class="difficulty hard">hard</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/sliding-window-maximum/"
+                                        target="_blank">#239</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/sliding-window-maximum-maximum-of-all-subarrays-of-size-k/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Design Hit Counter</td>
+                                <td><span class="topic-tag">queue</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/design-hit-counter/"
+                                        target="_blank">#362</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/design-hit-counter/" target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Moving Average from Data Stream</td>
+                                <td><span class="topic-tag">queue</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/moving-average-from-data-stream/"
+                                        target="_blank">#346</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/moving-average-from-data-stream/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Task Scheduler</td>
+                                <td><span class="topic-tag">queue</span> <span class="topic-tag">greedy</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/task-scheduler/" target="_blank">#621</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/task-scheduler-problem/" target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Design Circular Queue</td>
+                                <td><span class="topic-tag">queue</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/design-circular-queue/"
+                                        target="_blank">#622</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/design-circular-queue/" target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Implement Priority Queue</td>
+                                <td><span class="topic-tag">queue</span> <span class="topic-tag">heap</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/priority-queue-set-1-introduction/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/priority-queue-set-1-introduction/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Number of Islands using BFS (Queue)</td>
+                                <td><span class="topic-tag">queue</span> <span class="topic-tag">graph</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/number-of-islands/" target="_blank">#200</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/find-number-of-islands/" target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2>Level 5: Trees</h2>
+                <div class="level-content">
+                    <p>Learn about tree data structures including binary trees, binary search trees, tree traversals,
+                        and
+                        advanced tree problems.</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Problem Name</th>
+                                <th>Topics</th>
+                                <th>Difficulty</th>
+                                <th>Platform</th>
+                                <th>Article Link</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Implement Binary Tree</td>
+                                <td><span class="topic-tag">tree</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/binary-tree-set-1-introduction/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/binary-tree-set-1-introduction/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Binary Tree Inorder Traversal</td>
+                                <td><span class="topic-tag">tree</span> <span class="topic-tag">traversal</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/binary-tree-inorder-traversal/"
+                                        target="_blank">#94</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/inorder-tree-traversal-without-recursion/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Binary Tree Preorder Traversal</td>
+                                <td><span class="topic-tag">tree</span> <span class="topic-tag">traversal</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/tree-traversals-inorder-preorder-and-postorder/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/tree-traversals-inorder-preorder-and-postorder/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Binary Tree Postorder Traversal</td>
+                                <td><span class="topic-tag">tree</span> <span class="topic-tag">traversal</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/tree-traversals-inorder-preorder-and-postorder/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/tree-traversals-inorder-preorder-and-postorder/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Level Order Traversal</td>
+                                <td><span class="topic-tag">tree</span> <span class="topic-tag">bfs</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/binary-tree-level-order-traversal/"
+                                        target="_blank">#102</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/level-order-tree-traversal/"
+                                        target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Maximum Depth of Binary Tree</td>
+                                <td><span class="topic-tag">tree</span> <span class="topic-tag">dfs</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/maximum-depth-of-binary-tree/"
+                                        target="_blank">#104</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/find-depth-height-binary-tree/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Symmetric Tree</td>
+                                <td><span class="topic-tag">tree</span> <span class="topic-tag">recursion</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/symmetric-tree/" target="_blank">#101</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/check-if-a-binary-tree-is-mirror-of-itself/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Path Sum</td>
+                                <td><span class="topic-tag">tree</span> <span class="topic-tag">dfs</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/path-sum/" target="_blank">#112</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/root-to-leaf-path-sum-equal-to-a-given-number/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Construct Binary Tree from Preorder and Inorder Traversal</td>
+                                <td><span class="topic-tag">tree</span> <span class="topic-tag">recursion</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/"
+                                        target="_blank">#105</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/construct-tree-from-given-inorder-and-preorder-traversal/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Lowest Common Ancestor of a Binary Tree</td>
+                                <td><span class="topic-tag">tree</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/"
+                                        target="_blank">#236</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/lowest-common-ancestor-binary-tree-set-1/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Serialize and Deserialize Binary Tree</td>
+                                <td><span class="topic-tag">tree</span></td>
+                                <td><span class="difficulty hard">hard</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/serialize-and-deserialize-binary-tree/"
+                                        target="_blank">#297</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/serialize-deserialize-binary-tree/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Invert Binary Tree</td>
+                                <td><span class="topic-tag">tree</span> <span class="topic-tag">recursion</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/invert-binary-tree/"
+                                        target="_blank">#226</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/invert-or-mirror-binary-tree/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Balanced Binary Tree</td>
+                                <td><span class="topic-tag">tree</span> <span class="topic-tag">dfs</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/balanced-binary-tree/"
+                                        target="_blank">#110</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/how-to-check-if-a-binary-tree-is-balanced/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Count Complete Tree Nodes</td>
+                                <td><span class="topic-tag">tree</span> <span class="topic-tag">binary-tree</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/count-complete-tree-nodes/"
+                                        target="_blank">#222</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/count-number-nodes-complete-binary-tree/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Diameter of Binary Tree</td>
+                                <td><span class="topic-tag">tree</span> <span class="topic-tag">dfs</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/diameter-of-binary-tree/"
+                                        target="_blank">#543</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/diameter-of-a-binary-tree/"
+                                        target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Binary Search Tree Iterator</td>
+                                <td><span class="topic-tag">bst</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/binary-search-tree-iterator/"
+                                        target="_blank">#173</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/bst-iterator-set-1-introduction/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Validate Binary Search Tree</td>
+                                <td><span class="topic-tag">bst</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/validate-binary-search-tree/"
+                                        target="_blank">#98</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/a-program-to-check-if-a-binary-tree-is-bst-or-not/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Insert into a Binary Search Tree</td>
+                                <td><span class="topic-tag">bst</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/insert-into-a-binary-search-tree/"
+                                        target="_blank">#701</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/insert-a-node-in-binary-search-tree/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Delete Node in a BST</td>
+                                <td><span class="topic-tag">bst</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/delete-node-in-a-bst/"
+                                        target="_blank">#450</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/delete-a-node-from-binary-search-tree/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Convert Sorted Array to BST</td>
+                                <td><span class="topic-tag">bst</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/"
+                                        target="_blank">#108</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/sorted-array-to-balanced-bst/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2>Level 6: Graphs</h2>
+                <div class="level-content">
+                    <p>Understand graph fundamentals, traversal techniques, shortest paths, and advanced graph problems.
+                    </p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Problem Name</th>
+                                <th>Topics</th>
+                                <th>Difficulty</th>
+                                <th>Platform</th>
+                                <th>Article Link</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Graph Representation (Adjacency List/Matrix)</td>
+                                <td><span class="topic-tag">graph</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/graph-and-its-representations/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/graph-and-its-representations/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>DFS of Graph</td>
+                                <td><span class="topic-tag">graph</span> <span class="topic-tag">dfs</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/depth-first-search-or-dfs-for-a-graph/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/depth-first-search-or-dfs-for-a-graph/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>BFS of Graph</td>
+                                <td><span class="topic-tag">graph</span> <span class="topic-tag">bfs</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/breadth-first-search-or-bfs-for-a-graph/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/breadth-first-search-or-bfs-for-a-graph/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Detect Cycle in Directed Graph</td>
+                                <td><span class="topic-tag">graph</span> <span class="topic-tag">cycle-detection</span>
+                                </td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/detect-cycle-in-a-graph/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/detect-cycle-in-a-graph/" target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Detect Cycle in Undirected Graph</td>
+                                <td><span class="topic-tag">graph</span> <span class="topic-tag">cycle-detection</span>
+                                </td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/detect-cycle-undirected-graph/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/detect-cycle-undirected-graph/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Topological Sort</td>
+                                <td><span class="topic-tag">graph</span> <span class="topic-tag">topological-sort</span>
+                                </td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/topological-sorting/"
+                                        target="_blank">Link</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/topological-sorting/" target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Number of Islands</td>
+                                <td><span class="topic-tag">graph</span> <span class="topic-tag">dfs</span> <span
+                                        class="topic-tag">bfs</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/number-of-islands/" target="_blank">#200</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/find-number-of-islands/" target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Clone Graph</td>
+                                <td><span class="topic-tag">graph</span> <span class="topic-tag">dfs</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/clone-graph/" target="_blank">#133</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/clone-an-undirected-graph/"
+                                        target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Shortest Path in Binary Matrix</td>
+                                <td><span class="topic-tag">graph</span> <span class="topic-tag">bfs</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/shortest-path-in-binary-matrix/"
+                                        target="_blank">#1091</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/shortest-path-in-a-binary-maze/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Course Schedule (Detect Cycle in Directed Graph)</td>
+                                <td><span class="topic-tag">graph</span> <span class="topic-tag">cycle-detection</span>
+                                    <span class="topic-tag">topological-sort</span>
+                                </td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/course-schedule/" target="_blank">#207</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/topological-sorting-indegree-based-solution/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Find Mother Vertex</td>
+                                <td><span class="topic-tag">graph</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/find-a-mother-vertex-in-a-graph/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/find-a-mother-vertex-in-a-graph/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Number of Connected Components</td>
+                                <td><span class="topic-tag">graph</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/"
+                                        target="_blank">#323</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/connected-components-in-an-undirected-graph/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Dijkstra’s Shortest Path Algorithm</td>
+                                <td><span class="topic-tag">graph</span> <span class="topic-tag">shortest-path</span>
+                                </td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/dijkstras-shortest-path-algorithm-greedy-algo-7/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/dijkstras-shortest-path-algorithm-greedy-algo-7/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Bellman-Ford Algorithm</td>
+                                <td><span class="topic-tag">graph</span> <span class="topic-tag">shortest-path</span>
+                                </td>
+                                <td><span class="difficulty hard">hard</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/bellman-ford-algorithm-dp-23/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/bellman-ford-algorithm-dp-23/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Floyd Warshall Algorithm</td>
+                                <td><span class="topic-tag">graph</span> <span class="topic-tag">shortest-path</span>
+                                </td>
+                                <td><span class="difficulty hard">hard</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/floyd-warshall-algorithm-dp-16/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/floyd-warshall-algorithm-dp-16/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Kruskal’s Minimum Spanning Tree</td>
+                                <td><span class="topic-tag">graph</span> <span class="topic-tag">mst</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/kruskals-minimum-spanning-tree-algorithm-greedy-algo-2/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/kruskals-minimum-spanning-tree-algorithm-greedy-algo-2/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Prim’s Minimum Spanning Tree</td>
+                                <td><span class="topic-tag">graph</span> <span class="topic-tag">mst</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/prims-minimum-spanning-tree-mst-greedy-algo-5/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/prims-minimum-spanning-tree-mst-greedy-algo-5/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+                <h2>Level 7: Dynamic Programming</h2>
+                <div class="level-content">
+                    <p>Learn to solve complex problems by breaking them into simpler overlapping subproblems using
+                        memoization and tabulation.</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Problem Name</th>
+                                <th>Topics</th>
+                                <th>Difficulty</th>
+                                <th>Platform</th>
+                                <th>Article Link</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Fibonacci Number</td>
+                                <td><span class="topic-tag">dp</span> <span class="topic-tag">recursion</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/fibonacci-number/" target="_blank">#509</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/program-for-nth-fibonacci-number/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Climbing Stairs</td>
+                                <td><span class="topic-tag">dp</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/climbing-stairs/" target="_blank">#70</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/count-ways-reach-nth-stair/"
+                                        target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Coin Change (Minimum Coins)</td>
+                                <td><span class="topic-tag">dp</span> <span class="topic-tag">greedy</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/coin-change/" target="_blank">#322</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/coin-change-minimum-number-of-coins/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Longest Increasing Subsequence</td>
+                                <td><span class="topic-tag">dp</span> <span class="topic-tag">binary-search</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/longest-increasing-subsequence/"
+                                        target="_blank">#300</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/longest-increasing-subsequence-dp-3/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>0/1 Knapsack Problem</td>
+                                <td><span class="topic-tag">dp</span> <span class="topic-tag">knapsack</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/0-1-knapsack-problem-dp-10/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/0-1-knapsack-problem-dp-10/"
+                                        target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Subset Sum Problem</td>
+                                <td><span class="topic-tag">dp</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/subset-sum-problem-dp-25/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/subset-sum-problem-dp-25/"
+                                        target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Unique Paths in a Grid</td>
+                                <td><span class="topic-tag">dp</span> <span class="topic-tag">combinatorics</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/unique-paths/" target="_blank">#62</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/count-possible-paths-top-left-bottom-right-nxm-matrix/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Minimum Path Sum</td>
+                                <td><span class="topic-tag">dp</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/minimum-path-sum/" target="_blank">#64</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/minimum-path-sum-in-a-matrix/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Decode Ways</td>
+                                <td><span class="topic-tag">dp</span> <span class="topic-tag">string</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/decode-ways/" target="_blank">#91</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/count-possible-decoding-ways-given-digit-sequence/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Word Break Problem</td>
+                                <td><span class="topic-tag">dp</span> <span class="topic-tag">string</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/word-break/" target="_blank">#139</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/word-break-problem-dp-32/"
+                                        target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>House Robber</td>
+                                <td><span class="topic-tag">dp</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/house-robber/" target="_blank">#198</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/maximum-sum-without-adjacent-elements/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Longest Common Subsequence</td>
+                                <td><span class="topic-tag">dp</span> <span class="topic-tag">string</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/longest-common-subsequence/"
+                                        target="_blank">#1143</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/longest-common-subsequence-dp-4/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Edit Distance</td>
+                                <td><span class="topic-tag">dp</span> <span class="topic-tag">string</span></td>
+                                <td><span class="difficulty hard">hard</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/edit-distance/" target="_blank">#72</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/edit-distance-dp-5/" target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Partition Equal Subset Sum</td>
+                                <td><span class="topic-tag">dp</span> <span class="topic-tag">subset-sum</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/partition-equal-subset-sum/"
+                                        target="_blank">#416</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/partition-problem-dp-18/" target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Maximal Square</td>
+                                <td><span class="topic-tag">dp</span> <span class="topic-tag">matrix</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/maximal-square/" target="_blank">#221</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/maximum-size-sub-matrix-with-all-1s-in-a-binary-matrix/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Count Palindromic Subsequences</td>
+                                <td><span class="topic-tag">dp</span> <span class="topic-tag">string</span></td>
+                                <td><span class="difficulty hard">hard</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/count-palindromic-subsequence-in-a-string/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/count-palindromic-subsequence-in-a-string/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Longest Palindromic Substring</td>
+                                <td><span class="topic-tag">dp</span> <span class="topic-tag">string</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/longest-palindromic-substring/"
+                                        target="_blank">#5</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/longest-palindromic-substring-set-1/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Rod Cutting Problem</td>
+                                <td><span class="topic-tag">dp</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/cutting-a-rod-dp-13/"
+                                        target="_blank">Link</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/cutting-a-rod-dp-13/" target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Coin Change (Number of Ways)</td>
+                                <td><span class="topic-tag">dp</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/coin-change-dp-7/" target="_blank">Link</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/coin-change-dp-7/" target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2>Level 8: Graph Algorithms</h2>
+                <div class="level-content">
+                    <p>Explore graph traversal, shortest path, minimum spanning tree, and connectivity algorithms.</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Problem Name</th>
+                                <th>Topics</th>
+                                <th>Difficulty</th>
+                                <th>Platform</th>
+                                <th>Article Link</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>BFS (Breadth First Search)</td>
+                                <td><span class="topic-tag">graph</span> <span class="topic-tag">bfs</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/breadth-first-search-or-bfs-for-a-graph/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/breadth-first-search-or-bfs-for-a-graph/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>DFS (Depth First Search)</td>
+                                <td><span class="topic-tag">graph</span> <span class="topic-tag">dfs</span></td>
+                                <td><span class="difficulty easy">easy</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/depth-first-search-or-dfs-for-a-graph/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/depth-first-search-or-dfs-for-a-graph/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Detect Cycle in Undirected Graph</td>
+                                <td><span class="topic-tag">graph</span> <span class="topic-tag">cycle-detection</span>
+                                </td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/detect-cycle-undirected-graph/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/detect-cycle-undirected-graph/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Detect Cycle in Directed Graph</td>
+                                <td><span class="topic-tag">graph</span> <span class="topic-tag">cycle-detection</span>
+                                </td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/detect-cycle-in-a-graph/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/detect-cycle-in-a-graph/" target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Topological Sort</td>
+                                <td><span class="topic-tag">graph</span> <span class="topic-tag">topological-sort</span>
+                                </td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/topological-sorting/"
+                                        target="_blank">Link</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/topological-sorting/" target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Number of Islands</td>
+                                <td><span class="topic-tag">graph</span> <span class="topic-tag">dfs</span> <span
+                                        class="topic-tag">bfs</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/number-of-islands/" target="_blank">#200</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/find-number-of-islands/" target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Clone Graph</td>
+                                <td><span class="topic-tag">graph</span> <span class="topic-tag">dfs</span> <span
+                                        class="topic-tag">bfs</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/clone-graph/" target="_blank">#133</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/clone-an-undirected-graph/"
+                                        target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Course Schedule</td>
+                                <td><span class="topic-tag">graph</span> <span class="topic-tag">cycle-detection</span>
+                                    <span class="topic-tag">topological-sort</span>
+                                </td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/course-schedule/" target="_blank">#207</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/course-schedule-problem/" target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Dijkstra’s Shortest Path</td>
+                                <td><span class="topic-tag">graph</span> <span class="topic-tag">shortest-path</span>
+                                </td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/dijkstras-shortest-path-algorithm-greedy-algo-7/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/dijkstras-shortest-path-algorithm-greedy-algo-7/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Bellman-Ford Algorithm</td>
+                                <td><span class="topic-tag">graph</span> <span class="topic-tag">shortest-path</span>
+                                </td>
+                                <td><span class="difficulty hard">hard</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/bellman-ford-algorithm-dp-23/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/bellman-ford-algorithm-dp-23/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Kruskal’s Minimum Spanning Tree</td>
+                                <td><span class="topic-tag">graph</span> <span class="topic-tag">mst</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/kruskals-minimum-spanning-tree-algorithm-greedy-algo-2/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/kruskals-minimum-spanning-tree-algorithm-greedy-algo-2/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Prim’s Minimum Spanning Tree</td>
+                                <td><span class="topic-tag">graph</span> <span class="topic-tag">mst</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/prims-minimum-spanning-tree-mst-greedy-algo-5/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/prims-minimum-spanning-tree-mst-greedy-algo-5/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Find Mother Vertex in Graph</td>
+                                <td><span class="topic-tag">graph</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/find-a-mother-vertex-in-a-graph/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/find-a-mother-vertex-in-a-graph/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Graph Valid Tree</td>
+                                <td><span class="topic-tag">graph</span> <span class="topic-tag">dfs</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/graph-valid-tree/" target="_blank">#261</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/graph-valid-tree-leetcode/"
+                                        target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Number of Connected Components</td>
+                                <td><span class="topic-tag">graph</span> <span class="topic-tag">dfs</span> <span
+                                        class="topic-tag">bfs</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/"
+                                        target="_blank">#323</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/connected-components-in-an-undirected-graph/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Alien Dictionary</td>
+                                <td><span class="topic-tag">graph</span> <span class="topic-tag">topological-sort</span>
+                                </td>
+                                <td><span class="difficulty hard">hard</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/alien-dictionary/" target="_blank">Link</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/alien-dictionary/" target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Word Ladder</td>
+                                <td><span class="topic-tag">graph</span> <span class="topic-tag">bfs</span></td>
+                                <td><span class="difficulty hard">hard</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/word-ladder/" target="_blank">#127</a></td>
+                                <td><a href="https://leetcode.com/problems/word-ladder/" target="_blank">LeetCode
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Minimum Height Trees</td>
+                                <td><span class="topic-tag">graph</span></td>
+                                <td><span class="difficulty hard">hard</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/minimum-height-trees/"
+                                        target="_blank">#310</a>
+                                </td>
+                                <td><a href="https://leetcode.com/problems/minimum-height-trees/"
+                                        target="_blank">LeetCode
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Course Schedule II (Topological Sort)</td>
+                                <td><span class="topic-tag">graph</span> <span class="topic-tag">topological-sort</span>
+                                </td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/course-schedule-ii/"
+                                        target="_blank">#210</a>
+                                </td>
+                                <td><a href="https://leetcode.com/problems/course-schedule-ii/" target="_blank">LeetCode
+                                        Article</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2>Level 9: Advanced Topics</h2>
+                <div class="level-content">
+                    <p>Dive into advanced data structures and algorithmic techniques to tackle challenging problems.</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Problem Name</th>
+                                <th>Topics</th>
+                                <th>Difficulty</th>
+                                <th>Platform</th>
+                                <th>Article Link</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Segment Tree Construction</td>
+                                <td><span class="topic-tag">segment-tree</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/segment-tree-set-1-sum-of-given-range/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/segment-tree-set-1-sum-of-given-range/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Segment Tree Query</td>
+                                <td><span class="topic-tag">segment-tree</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/segment-tree-set-2-range-minimum-query/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/segment-tree-set-2-range-minimum-query/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Fenwick Tree (Binary Indexed Tree)</td>
+                                <td><span class="topic-tag">fenwick-tree</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/binary-indexed-tree-or-fenwick-tree-2/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/binary-indexed-tree-or-fenwick-tree-2/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Trie Implementation</td>
+                                <td><span class="topic-tag">trie</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/trie-insert-and-search/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/trie-insert-and-search/" target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>LRU Cache Implementation</td>
+                                <td><span class="topic-tag">design</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/lru-cache/" target="_blank">#146</a></td>
+                                <td><a href="https://leetcode.com/problems/lru-cache/" target="_blank">LeetCode
+                                        Article</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Suffix Array Construction</td>
+                                <td><span class="topic-tag">string</span> <span class="topic-tag">suffix-array</span>
+                                </td>
+                                <td><span class="difficulty hard">hard</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/suffix-array-set-1-introduction/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/suffix-array-set-1-introduction/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Heavy-Light Decomposition</td>
+                                <td><span class="topic-tag">tree</span> <span class="topic-tag">advanced</span></td>
+                                <td><span class="difficulty hard">hard</span></td>
+                                <td><span class="platform codeforces">Codeforces</span> <a
+                                        href="https://codeforces.com/blog/entry/43230" target="_blank">Link</a></td>
+                                <td><a href="https://codeforces.com/blog/entry/43230" target="_blank">Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Disjoint Set Union (Union-Find)</td>
+                                <td><span class="topic-tag">disjoint-set</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/union-find/" target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/union-find/" target="_blank">GFG Article</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Lowest Common Ancestor (LCA)</td>
+                                <td><span class="topic-tag">tree</span> <span class="topic-tag">lca</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/lowest-common-ancestor-in-a-binary-tree-set-1/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/lowest-common-ancestor-in-a-binary-tree-set-1/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Range Minimum Query (RMQ)</td>
+                                <td><span class="topic-tag">segment-tree</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/range-minimum-query-in-log-n-time-using-sparse-table/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/range-minimum-query-in-log-n-time-using-sparse-table/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Mo’s Algorithm</td>
+                                <td><span class="topic-tag">sqrt-decomposition</span></td>
+                                <td><span class="difficulty hard">hard</span></td>
+                                <td><span class="platform codeforces">Codeforces</span> <a
+                                        href="https://codeforces.com/blog/entry/73827" target="_blank">Link</a></td>
+                                <td><a href="https://codeforces.com/blog/entry/73827" target="_blank">Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Treap (Cartesian Tree)</td>
+                                <td><span class="topic-tag">tree</span></td>
+                                <td><span class="difficulty hard">hard</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/treap-data-structure/"
+                                        target="_blank">Link</a>
+                                </td>
+                                <td><a href="https://www.geeksforgeeks.org/treap-data-structure/" target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Suffix Automaton</td>
+                                <td><span class="topic-tag">string</span> <span class="topic-tag">automaton</span></td>
+                                <td><span class="difficulty hard">hard</span></td>
+                                <td><span class="platform codeforces">Codeforces</span> <a
+                                        href="https://codeforces.com/blog/entry/20861" target="_blank">Link</a></td>
+                                <td><a href="https://codeforces.com/blog/entry/20861" target="_blank">Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Persistent Segment Tree</td>
+                                <td><span class="topic-tag">segment-tree</span></td>
+                                <td><span class="difficulty hard">hard</span></td>
+                                <td><span class="platform codeforces">Codeforces</span> <a
+                                        href="https://codeforces.com/blog/entry/57319" target="_blank">Link</a></td>
+                                <td><a href="https://codeforces.com/blog/entry/57319" target="_blank">Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Heavy-Light Decomposition Queries</td>
+                                <td><span class="topic-tag">tree</span></td>
+                                <td><span class="difficulty hard">hard</span></td>
+                                <td><span class="platform codeforces">Codeforces</span> <a
+                                        href="https://codeforces.com/blog/entry/43230" target="_blank">Link</a></td>
+                                <td><a href="https://codeforces.com/blog/entry/43230" target="_blank">Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Euler Tour Technique</td>
+                                <td><span class="topic-tag">tree</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/euler-tour-technique-set-1-introduction/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/euler-tour-technique-set-1-introduction/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Kruskal’s MST Algorithm</td>
+                                <td><span class="topic-tag">graph</span> <span class="topic-tag">mst</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/kruskals-minimum-spanning-tree-algorithm-greedy-algo-2/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/kruskals-minimum-spanning-tree-algorithm-greedy-algo-2/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Prim’s MST Algorithm</td>
+                                <td><span class="topic-tag">graph</span> <span class="topic-tag">mst</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/prims-minimum-spanning-tree-mst-greedy-algo-5/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/prims-minimum-spanning-tree-mst-greedy-algo-5/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Suffix Tree Construction</td>
+                                <td><span class="topic-tag">string</span> <span class="topic-tag">suffix-tree</span>
+                                </td>
+                                <td><span class="difficulty hard">hard</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/suffix-tree-introduction/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/suffix-tree-introduction/"
+                                        target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Convex Hull Algorithm (Graham Scan)</td>
+                                <td><span class="topic-tag">geometry</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/convex-hull-set-1-jarviss-algorithm-or-wrapping/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/convex-hull-set-1-jarviss-algorithm-or-wrapping/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2>Level 10: Competitive Programming & Optimization</h2>
+                <div class="level-content">
+                    <p>Master complex problem-solving, optimization techniques, and participate confidently in
+                        competitive
+                        programming contests.</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Problem Name</th>
+                                <th>Topics</th>
+                                <th>Diframmity</th>
+                                <th>Platform</th>
+                                <th>Article Link</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Knuth-Morris-Pratt Algorithm</td>
+                                <td><span class="topic-tag">string</span> <span
+                                        class="topic-tag">pattern-matching</span>
+                                </td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/kmp-algorithm-for-pattern-searching/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/kmp-algorithm-for-pattern-searching/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Z Algorithm</td>
+                                <td><span class="topic-tag">string</span> <span
+                                        class="topic-tag">pattern-matching</span>
+                                </td>
+                                <td><span class="difficulty hard">hard</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/z-algorithm-linear-time-pattern-searching-algorithm/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/z-algorithm-linear-time-pattern-searching-algorithm/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Meet in the Middle</td>
+                                <td><span class="topic-tag">optimization</span></td>
+                                <td><span class="difficulty hard">hard</span></td>
+                                <td><span class="platform codeforces">Codeforces</span> <a
+                                        href="https://codeforces.com/blog/entry/15874" target="_blank">Link</a></td>
+                                <td><a href="https://codeforces.com/blog/entry/15874" target="_blank">Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Convex Hull Trick</td>
+                                <td><span class="topic-tag">dp</span> <span class="topic-tag">optimization</span></td>
+                                <td><span class="difficulty hard">hard</span></td>
+                                <td><span class="platform codeforces">Codeforces</span> <a
+                                        href="https://codeforces.com/blog/entry/63823" target="_blank">Link</a></td>
+                                <td><a href="https://codeforces.com/blog/entry/63823" target="_blank">Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Fast Fourier Transform (FFT)</td>
+                                <td><span class="topic-tag">math</span> <span class="topic-tag">fft</span></td>
+                                <td><span class="difficulty hard">hard</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/fast-fourier-transform/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/fast-fourier-transform/" target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Bitmask DP</td>
+                                <td><span class="topic-tag">dp</span> <span class="topic-tag">bitmask</span></td>
+                                <td><span class="difficulty hard">hard</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/bitmasking-and-dynamic-programming-set-1-introduction/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/bitmasking-and-dynamic-programming-set-1-introduction/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Meet in the Middle</td>
+                                <td><span class="topic-tag">divide-and-conquer</span></td>
+                                <td><span class="difficulty hard">hard</span></td>
+                                <td><span class="platform codechef">CodeChef</span> <a
+                                        href="https://discuss.codechef.com/t/meet-in-the-middle/49340"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://discuss.codechef.com/t/meet-in-the-middle/49340"
+                                        target="_blank">Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Graph Coloring</td>
+                                <td><span class="topic-tag">graph</span> <span class="topic-tag">backtracking</span>
+                                </td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/graph-coloring-applications/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/graph-coloring-applications/"
+                                        target="_blank">GFG
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Max Flow - Edmonds-Karp Algorithm</td>
+                                <td><span class="topic-tag">graph</span> <span class="topic-tag">max-flow</span></td>
+                                <td><span class="difficulty hard">hard</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/edmonds-karp-algorithm-for-maximum-flow-problem/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/edmonds-karp-algorithm-for-maximum-flow-problem/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Min Cost Max Flow</td>
+                                <td><span class="topic-tag">graph</span> <span class="topic-tag">flow</span></td>
+                                <td><span class="difficulty hard">hard</span></td>
+                                <td><span class="platform codeforces">Codeforces</span> <a
+                                        href="https://codeforces.com/blog/entry/72593" target="_blank">Link</a></td>
+                                <td><a href="https://codeforces.com/blog/entry/72593" target="_blank">Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Binary Search on Answer</td>
+                                <td><span class="topic-tag">binary-search</span> <span
+                                        class="topic-tag">optimization</span>
+                                </td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform codeforces">Codeforces</span> <a
+                                        href="https://codeforces.com/blog/entry/11080" target="_blank">Link</a></td>
+                                <td><a href="https://codeforces.com/blog/entry/11080" target="_blank">Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Sqrt Decomposition</td>
+                                <td><span class="topic-tag">sqrt-decomposition</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/sqrt-decomposition-technique/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/sqrt-decomposition-technique/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Game Theory Basics</td>
+                                <td><span class="topic-tag">game-theory</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/game-theory-set-1-introduction/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/game-theory-set-1-introduction/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Minimax Algorithm</td>
+                                <td><span class="topic-tag">game-theory</span> <span
+                                        class="topic-tag">backtracking</span>
+                                </td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/minimax-algorithm-in-game-theory-set-1-introduction/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/minimax-algorithm-in-game-theory-set-1-introduction/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Topological Sort</td>
+                                <td><span class="topic-tag">graph</span> <span class="topic-tag">sorting</span></td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform leetcode">LeetCode</span> <a
+                                        href="https://leetcode.com/problems/course-schedule/" target="_blank">#207</a>
+                                </td>
+                                <td><a href="https://leetcode.com/problems/course-schedule/" target="_blank">LeetCode
+                                        Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Discretization</td>
+                                <td><span class="topic-tag">sorting</span> <span class="topic-tag">optimization</span>
+                                </td>
+                                <td><span class="difficulty medium">medium</span></td>
+                                <td><span class="platform codeforces">Codeforces</span> <a
+                                        href="https://codeforces.com/blog/entry/8219" target="_blank">Link</a></td>
+                                <td><a href="https://codeforces.com/blog/entry/8219" target="_blank">Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Persistent Segment Trees</td>
+                                <td><span class="topic-tag">segment-tree</span> <span class="topic-tag">advanced</span>
+                                </td>
+                                <td><span class="difficulty hard">hard</span></td>
+                                <td><span class="platform codeforces">Codeforces</span> <a
+                                        href="https://codeforces.com/blog/entry/52854" target="_blank">Link</a></td>
+                                <td><a href="https://codeforces.com/blog/entry/52854" target="_blank">Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Mo’s Algorithm</td>
+                                <td><span class="topic-tag">sqrt-decomposition</span> <span
+                                        class="topic-tag">query</span>
+                                </td>
+                                <td><span class="difficulty hard">hard</span></td>
+                                <td><span class="platform geeksforgeeks">GeeksforGeeks</span> <a
+                                        href="https://www.geeksforgeeks.org/mo-algorithm-query-square-root-decomposition/"
+                                        target="_blank">Link</a></td>
+                                <td><a href="https://www.geeksforgeeks.org/mo-algorithm-query-square-root-decomposition/"
+                                        target="_blank">GFG Article</a></td>
+                            </tr>
+                            <tr>
+                                <td>Heavy Light Decomposition</td>
+                                <td><span class="topic-tag">tree</span> <span class="topic-tag">decomposition</span>
+                                </td>
+                                <td><span class="difficulty hard">hard</span></td>
+                                <td><span class="platform codeforces">Codeforces</span> <a
+                                        href="https://codeforces.com/blog/entry/43230" target="_blank">Link</a></td>
+                                <td><a href="https://codeforces.com/blog/entry/43230" target="_blank">Article</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+        </section>
+
+        <footer>
+            <p>&copy; Stacko - DSA Learning Platform. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Accordion for levels
+        document.querySelectorAll('h2').forEach(h2 => {
+            // Skip the topics overview h2 which shouldn't be clickable
+            if (!h2.closest('.topics-intro')) {
+                h2.addEventListener('click', function () {
+                    this.classList.toggle('active');
+                    const content = this.nextElementSibling;
+                    if (content.style.display === "block") {
+                        content.style.display = "none";
+                    } else {
+                        content.style.display = "block";
+                    }
+                });
+            }
+        });
+
+        // Simple search functionality (would be enhanced in a real implementation)
+        document.getElementById('searchButton').addEventListener('click', function () {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const difficultyFilter = document.getElementById('difficultyFilter').value;
+            const topicFilter = document.getElementById('topicFilter').value;
+            const platformFilter = document.getElementById('platformFilter').value;
+
+            // In a real implementation, this would filter the table rows
+            alert(`Search functionality would filter by:\nTerm: ${searchTerm}\nDifficulty: ${difficultyFilter || 'Any'}\nTopic: ${topicFilter || 'Any'}\nPlatform: ${platformFilter || 'Any'}`);
+        });
+    </script>
+</body>
+
+</html>
